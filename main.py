@@ -3,27 +3,54 @@ from tkinter import ttk
 
 import calculator
 
+def imprimeuno():
+    print(1)
+
+
 class MainApp(Tk):
     def __init__(self):
         Tk.__init__(self)
-        self.geometry("272x300")
         self.title("Calculadora")
 
-        s = ttk.Style()
-        s.theme_use('alt')
-        #s.configure('my.TLabel', font='Helvetica 36', background='black', foreground='white')
+
+        self.display = calculator.Display(self)
+        self.display.pack(side=TOP, fill=BOTH, expand=True)
+
+        self.teclado = ttk.Frame(self, width=calculator.WIDTH*4, height=calculator.HEIGHT * 5)
+        self.teclado.grid_propagate(0)
+        self.teclado.pack(side=TOP, fill=BOTH, expand=True)
+
+        calculator.CalcButton(self.teclado, 'C').grid(row=0, column=0)
+
+        botonC = calculator.CalcButton(self.teclado, '+/-')
+        botonC.grid(row=0, column=1)
+
+        botonC = calculator.CalcButton(self.teclado, '%')
+        botonC.grid(row=0, column=2)
+
+        botonC = calculator.CalcButton(self.teclado, '÷')
+        botonC.grid(row=0, column=3)
 
 
-        self.display = ttk.Label(self, text='9999', ancho=E, background='black', foreground='white', font='Helvetica 36', padding=(5,0,5,0))
-        self.display.pack(side=TOP, fill=BOTH)
-
-        self.calcButtonC = ttk.Frame(self, width=68, height=50)
-        btn = ttk.Button(self.calcButtonC, text='C',background='red')
+        '''
+        self.calcButtonC = ttk.Frame(self, width=136, height=50)
+        btn = ttk.Button(self.calcButtonC, text='C')
         self.calcButtonC.pack_propagate(False)
         btn.pack(side=TOP, fill=BOTH, expand=True)
+        self.calcButtonC.grid(column=0, row=1, columnspan=2)
+        
+        self.calcButtonCs = ttk.Frame(self, width=68, height=50)
+        btn = ttk.Button(self.calcButtonCs, text='+/-')
+        self.calcButtonCs.pack_propagate(False)
+        btn.pack(side=TOP, fill=BOTH, expand=True)
+        self.calcButtonCs.grid(column=2, row=1)
 
-        self.calcButtonC.pack(side=TOP)
-
+        self.calcButtondiv = ttk.Frame(self, width=68, height=50)
+        btn = ttk.Button(self.calcButtondiv, text='÷')
+        self.calcButtondiv.pack_propagate(False)
+        btn.pack(side=TOP, fill=BOTH, expand=True)
+        self.calcButtondiv.grid(column=3, row=1)
+        '''
 
 
 if __name__ == '__main__':
