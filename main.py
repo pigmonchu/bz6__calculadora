@@ -3,8 +3,7 @@ from tkinter import ttk
 
 import calculator
 
-def imprimeuno():
-    print(1)
+
 
 
 class MainApp(Tk):
@@ -12,12 +11,7 @@ class MainApp(Tk):
         Tk.__init__(self)
         self.title("Calculadora")
 
-
-        self.display = calculator.Display(self)
-        self.display.pack(side=TOP, fill=BOTH, expand=True)
-
-        self.teclado = calculator.Keyboard_con_diccionario(self)
-        self.teclado.pack(side=TOP)
+        self.calculator = calculator.Calculator(self)
 
 
 if __name__ == '__main__':
