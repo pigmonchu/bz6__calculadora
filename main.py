@@ -12,6 +12,7 @@ class MainApp(Tk):
         self.title("Calculadora")
 
         self.calculator = calculator.Calculator(self)
+        self.calculator.pack(side=TOP)
 
 
 if __name__ == '__main__':
