@@ -112,6 +112,8 @@ class Display(ttk.Frame):
         self.label.pack(side=TOP, fill=BOTH, expand=True)
 
     def refresh(self, texto):
+        if not isinstance(texto, str):
+            texto = literal_eval(str(texto))
 
         self.label.config(text=texto)
 
@@ -193,7 +195,7 @@ class Calculator(ttk.Frame):
                 self.valor2 = float(self.cadena)
                 self.r = self.calculate()
                 self.operador = tecla
-                self.display.refresh(literal_eval(self.r))
+                self.display.refresh(self.r)
                 self.valor1 = self.r
 
             self.cadena = ''
@@ -202,7 +204,7 @@ class Calculator(ttk.Frame):
                 return
             self.valor2 = float(self.cadena)
             self.r = self.calculate()
-            self.display.refresh(literal_eval(self.r))
+            self.display.refresh(self.r)
             self.operador = ''
             self.valor1 = self.r
             self.cadena = ''
