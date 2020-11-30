@@ -140,7 +140,6 @@ class Keyboard(ttk.Frame):
             btn = CalcButton(self, boton['text'],width=w, height=h, command=command)
             btn.grid(row=boton['r'], column=boton['c'], columnspan=w, rowspan=h)
 
-
 class Calculator(ttk.Frame):
     valor1 = None
     valor2 = None
@@ -163,31 +162,33 @@ class Calculator(ttk.Frame):
     def gestiona_calculos(self, tecla):
         print(tecla)
 
-        if tecla.isdigit() != 0:
-            print('cadena', self.cadena)
+        if tecla.isdigit():
             if not (self.cadena == '' and tecla == '0'):
                 self.cadena += tecla
                 self.display.refresh(self.cadena)
-        elif tecla in '+-x÷':
+        elif tecla in tuple('+-x÷'):
             if self.valor1 == None:
+                self.operador = tecla
                 self.valor1 = int(self.cadena)
                 self.cadena = ''
-                self.operador = tecla
             else:
                 if not self.cadena: 
+                    self.operador = tecla
                     return
                 self.valor2 = int(self.cadena)
                 self.r = self.calculate()
+                self.operador = tecla
                 self.display.refresh(self.r)
                 self.valor1 = self.r
-            self.cadena = ''
 
+            self.cadena = ''
         elif tecla == '=':
             if not self.cadena: 
                 return
             self.valor2 = int(self.cadena)
             self.r = self.calculate()
             self.display.refresh(self.r)
+            self.operador = ''
             self.valor1 = self.r
             self.cadena = ''
         elif tecla == 'C':
@@ -210,5 +211,8 @@ class Calculator(ttk.Frame):
             return self.valor1 - self.valor2
         elif self.operador == 'x':
             return self.valor1 * self.valor2
-        else:
+        elif self.operador == '÷':
             return self.valor1 / self.valor2
+        else:
+            print("error en operador")
+            return 'E'
