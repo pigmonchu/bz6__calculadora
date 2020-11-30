@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk
+from ast import literal_eval
 
 WIDTH = 68
 HEIGHT = 50
@@ -111,6 +112,7 @@ class Display(ttk.Frame):
         self.label.pack(side=TOP, fill=BOTH, expand=True)
 
     def refresh(self, texto):
+
         self.label.config(text=texto)
 
 class CalcButton(ttk.Frame):
@@ -191,7 +193,7 @@ class Calculator(ttk.Frame):
                 self.valor2 = float(self.cadena)
                 self.r = self.calculate()
                 self.operador = tecla
-                self.display.refresh((self.formatNumber(self.r)))
+                self.display.refresh(literal_eval(self.r))
                 self.valor1 = self.r
 
             self.cadena = ''
@@ -200,7 +202,7 @@ class Calculator(ttk.Frame):
                 return
             self.valor2 = float(self.cadena)
             self.r = self.calculate()
-            self.display.refresh((self.formatNumber(self.r)))
+            self.display.refresh(literal_eval(self.r))
             self.operador = ''
             self.valor1 = self.r
             self.cadena = ''
@@ -227,5 +229,5 @@ class Calculator(ttk.Frame):
         elif self.operador == '÷':
             return self.valor1 / self.valor2
         else:
-            prfloat("error en operador")
+            print("error en operador")
             return 'E'
